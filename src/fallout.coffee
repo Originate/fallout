@@ -21,17 +21,14 @@
       @listeners = []
 
     emitChange: ->
-      for listener in @listeners
-        listener.call(this)
+      listener.call this for listener in @listeners
 
     observe: (handler) ->
-      unless @listeners.indexOf(handler) >= 0
-        @listeners.push handler
+      @listeners.push handler unless @listeners.indexOf(handler) >= 0
 
     ignore: (handler) ->
       index = @listeners.indexOf handler
-      return unless index >= 0
-      @listeners.splice(index, 1)
+      @listeners.splice index, 1 if index >= 0
 
     checkOut: ->
       @data.toJS()
@@ -63,15 +60,12 @@
     onFalloutStoreChange: ->
       for name, selector of @_falloutWatchSelectors()
         storeValue = Fallout.store.data.getIn selector
-        unless @state["_#{name}"] is storeValue
+        unless Immutable.is @state["_#{name}"], storeValue
           @_updateStateFromFallout name, storeValue
 
     _falloutWatchSelectors: ->
       if @watch?
-        selectors = if typeof(@watch) is 'function'
-          @watch()
-        else
-          @watch
+        if typeof(@watch) is 'function' then @watch() else @watch
       else
         {}
 
