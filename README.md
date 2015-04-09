@@ -6,6 +6,16 @@ At it's core, Fallout provides an Immutable structure for the data backing the a
 
 All changes to the data store are made in actions and that is the only place the data should be directly manipulated.
 
+## Setup
+
+Since Fallout uses `Immutable.js`, you must have it available. It will look for it using standard
+module systems and finally on `window`.
+
+```
+<script src='https://cdnjs.cloudflare.com/ajax/libs/immutable/3.7.1/immutable.min.js'></script>
+<script src='/fallout.js'></script>
+```
+
 ## Usage
 
 Create some actions. These actions will be exposed to your components
