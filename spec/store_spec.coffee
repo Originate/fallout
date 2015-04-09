@@ -18,7 +18,7 @@ describe 'Store', ->
       listener = ->
       Fallout.store.observe listener
       Fallout.store.observe listener
-      expect(Fallout.store.listeners).to.have.length(1)
+      expect(Fallout.store.listeners).to.have.length 1
 
   describe '#ignore', ->
 
@@ -26,12 +26,12 @@ describe 'Store', ->
       listener = ->
       Fallout.store.observe listener
       Fallout.store.ignore listener
-      expect(Fallout.store.listeners).to.have.length(0)
+      expect(Fallout.store.listeners).to.have.length 0
 
     it 'can be called even if the listener is not registered', ->
       listener = ->
       Fallout.store.ignore listener
-      expect(Fallout.store.listeners).to.have.length(0)
+      expect(Fallout.store.listeners).to.have.length 0
 
   describe '#checkOut', ->
 
