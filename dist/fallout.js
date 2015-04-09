@@ -38,10 +38,9 @@
     _Class.prototype.ignore = function(handler) {
       var index;
       index = this.listeners.indexOf(handler);
-      if (!(index >= 0)) {
-        return;
+      if (index >= 0) {
+        return this.listeners.splice(index, 1);
       }
-      return this.listeners.splice(index, 1);
     };
 
     _Class.prototype.checkOut = function() {
@@ -87,7 +86,7 @@
       for (name in ref) {
         selector = ref[name];
         storeValue = Fallout.store.data.getIn(selector);
-        if (this.state["_" + name] !== storeValue) {
+        if (!Immutable.is(this.state["_" + name], storeValue)) {
           results.push(this._updateStateFromFallout(name, storeValue));
         } else {
           results.push(void 0);
@@ -96,9 +95,12 @@
       return results;
     },
     _falloutWatchSelectors: function() {
-      var selectors;
       if (this.watch != null) {
-        return selectors = typeof this.watch === 'function' ? this.watch() : this.watch;
+        if (typeof this.watch === 'function') {
+          return this.watch();
+        } else {
+          return this.watch;
+        }
       } else {
         return {};
       }
