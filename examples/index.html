@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <script src='http://fb.me/react-0.13.1.js'></script>
+    <script src='http://fb.me/JSXTransformer-0.13.1.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/immutable/3.7.1/immutable.min.js'></script>
+    <script src='../dist/fallout.js'></script>
+  </head>
+  <body>
+    <div id='example'></div>
+    <script type='text/jsx'>
+      Fallout.defineActionSet('example', {
+        incrementCounter: function() {
+          data = this.store.checkOut();
+          if (!data.counter) {
+            data.counter = 0;
+          }
+          data.counter += 1;
+          this.store.checkIn(data);
+        }
+      });
+      var Example = React.createClass({
+        mixins: [Fallout.Mixin],
+        watch: {counter: ['counter']},
+        onClick: function() {
+          this.actions.example.incrementCounter();
+        },
+        render: function() {
+          return (<div>
+            <p>{this.state.counter || 0}</p>
+            <button onClick={this.onClick}>Increment</button>
+          </div>);
+        }
+      });
+      React.render(
+        <Example />,
+        document.getElementById('example')
+      );
+    </script>
+  </body>
+</html>
