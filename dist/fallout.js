@@ -24,7 +24,7 @@
       results = [];
       for (i = 0, len = ref.length; i < len; i++) {
         listener = ref[i];
-        results.push(listener.call(this));
+        results.push(listener != null ? listener.call(this) : void 0);
       }
       return results;
     };

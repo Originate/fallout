@@ -21,7 +21,7 @@
       @listeners = []
 
     emitChange: ->
-      listener.call this for listener in @listeners
+      listener?.call this for listener in @listeners
 
     observe: (handler) ->
       @listeners.push handler unless @listeners.indexOf(handler) >= 0
