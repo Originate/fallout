@@ -20,21 +20,29 @@
       @data = Immutable.Map()
       @listeners = []
 
+    checkIn: (newData) ->
+      @data = @data.mergeDeep newData
+      @emitChange()
+
+    checkOut: ->
+      @data.toJS()
+
     emitChange: ->
       listener?.call this for listener in @listeners
-
-    observe: (handler) ->
-      @listeners.push handler unless @listeners.indexOf(handler) >= 0
 
     ignore: (handler) ->
       index = @listeners.indexOf handler
       @listeners.splice index, 1 if index >= 0
 
-    checkOut: ->
-      @data.toJS()
+    initialize: (initialData) ->
+      @data = Immutable.fromJS initialData
+      @emitChange()
 
-    checkIn: (newData) ->
-      @data = @data.mergeDeep newData
+    observe: (handler) ->
+      @listeners.push handler unless @listeners.indexOf(handler) >= 0
+
+    setData: (newData) ->
+      @data = newData
       @emitChange()
 
   Fallout.store = new Fallout.Store()

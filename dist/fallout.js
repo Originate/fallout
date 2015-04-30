@@ -18,6 +18,15 @@
       this.listeners = [];
     }
 
+    _Class.prototype.checkIn = function(newData) {
+      this.data = this.data.mergeDeep(newData);
+      return this.emitChange();
+    };
+
+    _Class.prototype.checkOut = function() {
+      return this.data.toJS();
+    };
+
     _Class.prototype.emitChange = function() {
       var i, len, listener, ref, results;
       ref = this.listeners;
@@ -29,12 +38,6 @@
       return results;
     };
 
-    _Class.prototype.observe = function(handler) {
-      if (!(this.listeners.indexOf(handler) >= 0)) {
-        return this.listeners.push(handler);
-      }
-    };
-
     _Class.prototype.ignore = function(handler) {
       var index;
       index = this.listeners.indexOf(handler);
@@ -43,12 +46,19 @@
       }
     };
 
-    _Class.prototype.checkOut = function() {
-      return this.data.toJS();
+    _Class.prototype.initialize = function(initialData) {
+      this.data = Immutable.fromJS(initialData);
+      return this.emitChange();
     };
 
-    _Class.prototype.checkIn = function(newData) {
-      this.data = this.data.mergeDeep(newData);
+    _Class.prototype.observe = function(handler) {
+      if (!(this.listeners.indexOf(handler) >= 0)) {
+        return this.listeners.push(handler);
+      }
+    };
+
+    _Class.prototype.setData = function(newData) {
+      this.data = newData;
       return this.emitChange();
     };
 

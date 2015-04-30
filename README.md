@@ -66,10 +66,38 @@ You can then manipulate the object as you see fit and when done use
 `this.store.checkIn(data)`.
 
 You can work with the immutable data in the store directly if you prefer.
-The object `store.data` is an `Immutable.Map`. To use it directly you'll need to reassign
-the `store.data`, for example `this.store.data = this.store.data.set('counter', 2)`.
-If you do this, you are also responsible for letting the system know there has been a change
-and must manually call `this.store.emitChange()`.
+The object `store.data` is an `Immutable.Map`. To change the data in the store you can
+use the `store.setData` function, for example `this.store.setdata this.store.data.set('counter', 2)`.
+
+## Intializing
+
+You likely will want your store to start in some initial state with some default values.
+You can initialize the store by giving it a standard `Object` or by directly assigning an
+Immutable `Map` to the store's data via `setData`.
+
+`Fallout.store.initialize({key: 'value'});`
+
+*OR*
+
+`Fallout.store.setData Immutable.Map({key: 'value'});`
+
+## Testing
+
+When testing your actions, you'll likely want to reset your store before each test.
+
+```
+beforeEach(function() {
+  Fallout.store.listeners = [];
+  Fallout.store.initialize({});
+});
+```
+
+For each test you should set the store to the applicable state, fire your action, and verify the
+final state of the store.
+
+You should not need to `mock` the store as it has no resource dependencies that would need mocking.
+
+You can and should handle mocking any dependencies your actions use such as API access.
 
 ## Development
 
