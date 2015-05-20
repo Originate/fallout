@@ -52,6 +52,7 @@
   Fallout.defineActionSet = (name, params) ->
     Fallout.actions[name] = params
     Fallout.actions[name].store = Fallout.store
+    Fallout.actions[name].actions = Fallout.actions
 
   Fallout.Mixin =
     componentWillMount: ->
