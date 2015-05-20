@@ -1,2 +1,2 @@
-var Fallout = require('../dist/fallout.js');
+var Fallout = require('./dist/fallout.js');
 module.exports = Fallout
