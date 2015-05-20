@@ -15,6 +15,9 @@
     "type": "git",
     "url": "https://github.com/Originate/fallout.git"
   },
+  "dependencies": {
+    "immutable": "^3.7.1"
+  },
   "devDependencies": {
     "chai": "^2.2.0",
     "coffee-script": "^1.9.1",
@@ -23,7 +26,6 @@
     "gulp-uglify": "^1.1.0",
     "gulp-uglifyjs": "^0.6.1",
     "gulp-util": "^3.0.4",
-    "immutable": "^3.7.1",
     "mycha": "^0.8.0",
     "selenium-webdriver": "^2.45.1",
     "sinon": "^1.14.1",
