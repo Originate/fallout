@@ -8,6 +8,13 @@
   },
   "author": "Alex Peachey",
   "license": "MIT",
+  "bin": {
+    "fallout": "bin/fallout"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Originate/fallout.git"
+  },
   "devDependencies": {
     "chai": "^2.2.0",
     "coffee-script": "^1.9.1",
